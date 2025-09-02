@@ -4,6 +4,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Fix for Render WebSocket issues
+st.set_page_config(
+    page_title="Your App Name",
+    page_icon="📊",
+    layout="wide"
+)
+
+# Add this to prevent WebSocket connection errors
+st.markdown(
+    """
+    <style>
+    .stApp {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
 uploaded_files = st.file_uploader('Upload your file', type=['csv'], accept_multiple_files=True)
 
 if uploaded_files:
@@ -61,3 +83,4 @@ if uploaded_files:
                     sns.barplot(x=df[var_of_interest].value_counts().index, y=df[var_of_interest].value_counts().values, ax=ax, palette='Blues' )
                 st.pyplot(fig)
             
+
