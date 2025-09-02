@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import io
 
 # Fix for Render WebSocket issues
 st.set_page_config(
@@ -31,7 +32,7 @@ uploaded_files = st.file_uploader('Upload your file', type=['csv'], accept_multi
 if uploaded_files:
     for uploaded_file in uploaded_files:
         st.write(f"**File name:** {uploaded_file.name}")
-        df = pd.read_csv(uploaded_file)
+        df = pd.read_csv(io.BytesIO(file_content))
         st.write(df.head(2))
 
         st.write('File Description:')
@@ -83,4 +84,5 @@ if uploaded_files:
                     sns.barplot(x=df[var_of_interest].value_counts().index, y=df[var_of_interest].value_counts().values, ax=ax, palette='Blues' )
                 st.pyplot(fig)
             
+
 
